@@ -1,25 +1,39 @@
-import logo from './logo.svg';
+import logo from '../logo.svg';
 import './Practice001.css';
+import {useState} from 'react';
 
-function App() {
-  return (
+function Practice001() {
+
+    let txtArr = ['하나', '둘', '셋'];
+    let [index, setIndex] = useState(0);
+
+    return (
     <div className="App">
-      <header className="App-header">
+    <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+            {txtArr[index]}
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <button onClick={()=>{
+
+            setIndex((index+1)%txtArr.length); //인덱스에 1씩 더하면서 인덱스 길이만큼 나눈다.
+
+            /*
+            let value = (index + 1) == 3 ? 0 : (index + 1);
+            setIndex(value);
+            */
+            /*
+            index++;
+            if(index > 2){
+                index = 0;
+            }
+            setIndex(index);
+            */
+        }}>변경버튼</button>
+        </header>
     </div>
-  );
+    );
+
 }
 
-export default App;
+export default Practice001;
