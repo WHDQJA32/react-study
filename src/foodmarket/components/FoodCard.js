@@ -10,7 +10,7 @@ function FoodCard( {food, foods, index} ){
         <Card.Img variant="top" src={process.env.PUBLIC_URL + foods[index].imgPath} />
         <Card.Body>
             <Card.Title>{food.title}</Card.Title>
-            <Card.Text>{foods[index].content}</Card.Text>
+            <Card.Text>{food.content}</Card.Text>
             <Card.Text>{foods[index].price}</Card.Text>
             <Button variant="primary">상세보기</Button>
         </Card.Body>

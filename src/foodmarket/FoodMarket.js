@@ -5,30 +5,28 @@ import './FoodMarket.css';
 import banner_bg from './banner_bg.jpg';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
-
-import food1 from './food1.jpg';
-import food2 from './food2.jpg';
-import food3 from './food3.jpg';
 
 import foodsData from '../data/foodsData.js';
 import { useState } from 'react';
-import FoodCard from './FoodCard.js';
+import FoodCard from './components/FoodCard.js';
+import Home from './pages/Home.js';
+
+import { Routes, Route, Link, useNavigate} from 'react-router-dom';
 
 function FoodMarket() {
 
     let [foods, setFoods] = useState(foodsData);
+    let navigate = useNavigate(); //경로 조작 함수
 
     return (
         <div>
             <Navbar bg="light" data-bs-theme="light">
                 <Container>
-                    <Navbar.Brand href="#home">Market</Navbar.Brand>
+                    <Navbar.Brand href="/">Market</Navbar.Brand>
                     <Nav className="me-auto">
-                        <Nav.Link href="#home">Home</Nav.Link>
-                        <Nav.Link href="#features">FoodDetail</Nav.Link>
-                        <Nav.Link href="#pricing">Info</Nav.Link>
+                        <Nav.Link href="#home"><Link to="/">Home</Link></Nav.Link>
+                        <Nav.Link onClick={()=>{navigate("/detail")}}>FoodDetail</Nav.Link>
+                        <Nav.Link onClick={()=>{navigate("/info")}}>Info</Nav.Link>
                     </Nav>
                 </Container>
             </Navbar>
@@ -47,24 +45,31 @@ function FoodMarket() {
             "homepage":"/newurlpath" 상세 경로로 인식
             */}
 
-            <div className='main-bg' style={{ backgroundImage: 'url(' + banner_bg + ')' }}></div>
+            <Routes>
 
-            <Container>
-                <Row>
-                    {/*<FoodCard title={foods[0].title} content={foods[0].content} 
-                    price={foods[0].price}/>*/}
-                    {
-                        foods.map((food, index)=>{
-                            return (<Col md={4} sm={2} key={index}><FoodCard food={food} index={index} foods={foods}/></Col>);
-                        })
-                    }
+                <Route path="/" element={<div>
+                    <div className='main-bg' style={{ backgroundImage: 'url(' + banner_bg + ')' }}></div>
 
-                    {/*<Col md={4} sm={2}><FoodCard food={foods[0]}/></Col>
-                    <Col md={4} sm={2}><FoodCard food={foods[1]}/></Col>
-                    <Col md={4} sm={2}><FoodCard food={foods[2]}/></Col>*/}
+                    <Container>
+                        <Row>
+                            {/*<FoodCard title={foods[0].title} content={foods[0].content} 
+                            price={foods[0].price}/>*/}
+                            {
+                                foods.map((food, index) => {
+                                    return (<Col md={4} sm={2} key={index}><FoodCard food={food} index={index} foods={foods} /></Col>);
+                                })
+                            }
 
-                </Row>
-            </Container>
+                            {/*<Col md={4} sm={2}><FoodCard food={foods[0]}/></Col>
+                            <Col md={4} sm={2}><FoodCard food={foods[1]}/></Col>
+                            <Col md={4} sm={2}><FoodCard food={foods[2]}/></Col>*/}
+                        </Row>
+                    </Container>
+                </div>}/>
+                    <Route path="/" element={<Home foods={foods}/>}/>
+                    <Route path="/detail" element={<h1>detail page</h1>} />
+                    <Route path="/info" element={<h1>info page</h1>} />
+            </Routes>
 
         </div>
 
